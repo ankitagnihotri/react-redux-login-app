@@ -55,7 +55,7 @@ class Login extends Component {
           <input
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder="Email: hruday@gmail.com"
             value={this.state.email}
             onChange={this.handleChangeEmail}
           />
@@ -63,7 +63,7 @@ class Login extends Component {
           <input
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="Password: hruday123"
             value={this.state.password}
             onChange={this.handleChangePassword}
           />
@@ -79,13 +79,17 @@ class Login extends Component {
     </div>
   );
 
-  renderComponent = () => {
-    if (this.props.loggedIn) {
-      return <Redirect to="/home" />;
-    } else {
-      return <this.loginComponent />;
-    }
-  };
+  renderComponent = props =>
+    this.props.loggedIn ? (
+      <Redirect
+        to={{
+          pathname: "/home",
+          state: { from: this.props.loggedIn }
+        }}
+      />
+    ) : (
+      <this.loginComponent />
+    );
 
   render() {
     return (

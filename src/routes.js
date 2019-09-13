@@ -1,32 +1,28 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
+import createHistory from "history/createBrowserHistory";
 import { connect } from "react-redux";
 import Login from "./components/Login";
 import Home from "./components/Home";
 
-class CustomRouter extends Component {
-  controllRedirection = () => {
-    console.log("fn", this.props.loggedIn);
-    if (this.props.loggedIn === true) {
-      return <Redirect to="/home" />;
-    } else {
-      return <Redirect to="/login" />;
-    }
-  };
+const history = createHistory();
 
+class CustomRouter extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
+          <Route path="/login" component={Login} />
           <Route path="/home" component={Home} />
-          <Route path="/login" exact component={Login} />
           <Route
-            path="/"
             exact
-            render={() => this.controllRedirection(this.props)}
+            path="/"
+            render={() =>
+              this.props.loggedIn ? <Redirect to="/home" /> : <Login />
+            }
           />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
@@ -39,5 +35,3 @@ const mapStatetoProps = ({ Login }) => {
 };
 
 export default connect(mapStatetoProps)(CustomRouter);
-
-// export default CustomRouter;

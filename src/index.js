@@ -11,9 +11,7 @@ const store = configureStore(applyMiddleware(thunk));
 // console.log = function() {};
 ReactDOM.render(
   <Provider store={store}>
-    <div>
-      <CustomRouter />
-    </div>
+    <CustomRouter />
   </Provider>,
   document.getElementById("root")
 );

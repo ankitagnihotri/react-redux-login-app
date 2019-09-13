@@ -4,14 +4,9 @@ import {
   VERIFY_CLIENT_SESSION
 } from "./actionTypes";
 
-// let user = {
-//   username: "hruday@gmail.com",
-//   password: "hruday123"
-// };
-
 let user = {
-  username: "aa",
-  password: "aa"
+  username: "hruday@gmail.com",
+  password: "hruday123"
 };
 
 export const verifyClient = loginInput => {

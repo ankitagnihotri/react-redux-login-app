@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router";
 import ReactTable from "react-table";
+import { connect } from "react-redux";
 import "react-table/react-table.css";
 import Data from "./../User.json";
 
 class Home extends Component {
-  handleLogout = e => {
-    this.props.history.replace("/login");
+  handleLogout = () => {
+    let url = window.location.href;
+    let temp = url.split("/home");
+    let loginUrl = temp[0] + "/login";
+    window.open(loginUrl, "_top");
   };
 
   render() {
@@ -41,7 +44,7 @@ class Home extends Component {
       <div>
         <div
           style={{ float: "right", marginRight: "60px", cursor: "pointer" }}
-          onClick={e => this.handleLogout(e)}
+          onClick={this.handleLogout}
         >
           Logout
         </div>
@@ -60,4 +63,16 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home);
+const mapStatetoProps = ({ Login }) => {
+  const { loggedIn } = Login;
+  return {
+    loggedIn
+  };
+};
+
+export default connect(
+  mapStatetoProps,
+  {}
+)(Home);
+
+// export default Home;
